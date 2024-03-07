@@ -1,13 +1,34 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import UserOne from '../../images/user/user-01.png';
+import { useDispatch } from 'react-redux';
+import { signoutSuccess } from '../../redux/user/userSlice';
+import { query } from '../../utils/axiosUtil';
 
 const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const trigger = useRef<any>(null);
   const dropdown = useRef<any>(null);
+
+  const handleSignout = async () => {
+    try {
+      const data = await query('POST', '/api/auth/signout', {});
+
+      if (!data.success) {
+        console.log(data.message);
+      } else {
+        await dispatch(signoutSuccess());
+        navigate('/auth/signin');
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
 
   // close on click outside
   useEffect(() => {
@@ -153,7 +174,10 @@ const DropdownUser = () => {
             </Link>
           </li>
         </ul>
-        <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+        <button
+          className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
+          onClick={handleSignout}
+        >
           <svg
             className="fill-current"
             width="22"
