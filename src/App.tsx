@@ -17,13 +17,13 @@ import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import Careers from './pages/Dashboard/Careers/Careers';
 import PrivateRoute from './components/PrivateRoute';
-import CreateCareer from './pages/Dashboard/Careers/createCareer';
 import UpdateCareer from './pages/Dashboard/Careers/UpdateCareer';
 import Topics from './pages/Dashboard/MessageForms/Topics/Topics';
 import UpdateTopic from './pages/Dashboard/MessageForms/Topics/UpdateTopic';
 import CreateTopic from './pages/Dashboard/MessageForms/Topics/CreateTopic';
 import DetailMessage from './pages/Dashboard/MessageForms/Messages/DetailMessage';
 import Messages from './pages/Dashboard/MessageForms/Messages/Messages';
+import CreateCareer from './pages/Dashboard/Careers/CreateCareer';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
