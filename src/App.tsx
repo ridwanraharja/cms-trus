@@ -19,6 +19,11 @@ import Careers from './pages/Dashboard/Careers/Careers';
 import PrivateRoute from './components/PrivateRoute';
 import CreateCareer from './pages/Dashboard/Careers/createCareer';
 import UpdateCareer from './pages/Dashboard/Careers/UpdateCareer';
+import Topics from './pages/Dashboard/MessageForms/Topics/Topics';
+import UpdateTopic from './pages/Dashboard/MessageForms/Topics/UpdateTopic';
+import CreateTopic from './pages/Dashboard/MessageForms/Topics/CreateTopic';
+import DetailMessage from './pages/Dashboard/MessageForms/Messages/DetailMessage';
+import Messages from './pages/Dashboard/MessageForms/Messages/Messages';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,7 +47,7 @@ function App() {
             index
             element={
               <>
-                <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="eCommerce Dashboard | Admin CMS" />
                 <ECommerce />
               </>
             }
@@ -75,10 +80,56 @@ function App() {
             }
           />
           <Route
+            path="/topics/create"
+            element={
+              <>
+                <PageTitle title="Topics" />
+                <CreateTopic />
+              </>
+            }
+          />
+
+          <Route
+            path="/topics/update/:topicId"
+            element={
+              <>
+                <PageTitle title="Topics" />
+                <UpdateTopic />
+              </>
+            }
+          />
+          <Route
+            path="/topics"
+            element={
+              <>
+                <PageTitle title="Topics" />
+                <Topics />
+              </>
+            }
+          />
+          <Route
+            path="/messageforms/detail/:messageformId"
+            element={
+              <>
+                <PageTitle title="Message Forms" />
+                <DetailMessage />
+              </>
+            }
+          />
+          <Route
+            path="/messageforms"
+            element={
+              <>
+                <PageTitle title="Message Forms" />
+                <Messages />
+              </>
+            }
+          />
+          <Route
             path="/calendar"
             element={
               <>
-                <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Calendar | Admin CMS" />
                 <Calendar />
               </>
             }
@@ -87,7 +138,7 @@ function App() {
             path="/profile"
             element={
               <>
-                <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Profile | Admin CMS" />
                 <Profile />
               </>
             }
@@ -96,7 +147,7 @@ function App() {
             path="/forms/form-elements"
             element={
               <>
-                <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Form Elements | Admin CMS" />
                 <FormElements />
               </>
             }
@@ -105,7 +156,7 @@ function App() {
             path="/forms/form-layout"
             element={
               <>
-                <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Form Layout | Admin CMS" />
                 <FormLayout />
               </>
             }
@@ -114,7 +165,7 @@ function App() {
             path="/tables"
             element={
               <>
-                <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Tables | Admin CMS" />
                 <Tables />
               </>
             }
@@ -123,7 +174,7 @@ function App() {
             path="/settings"
             element={
               <>
-                <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Settings | Admin CMS" />
                 <Settings />
               </>
             }
@@ -132,7 +183,7 @@ function App() {
             path="/chart"
             element={
               <>
-                <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Basic Chart | Admin CMS" />
                 <Chart />
               </>
             }
@@ -141,7 +192,7 @@ function App() {
             path="/ui/alerts"
             element={
               <>
-                <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Alerts | Admin CMS" />
                 <Alerts />
               </>
             }
@@ -150,7 +201,7 @@ function App() {
             path="/ui/buttons"
             element={
               <>
-                <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                <PageTitle title="Buttons | Admin CMS" />
                 <Buttons />
               </>
             }
@@ -160,7 +211,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin | Admin CMS" />
               <SignIn />
             </>
           }
@@ -169,7 +220,7 @@ function App() {
           path="/auth/signup"
           element={
             <>
-              <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signup | Admin CMS" />
               <SignUp />
             </>
           }

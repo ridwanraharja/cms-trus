@@ -8,7 +8,7 @@ export const query = async (method: string, url: string, data?: any) => {
   switch (method) {
     case 'GET':
       const getResponse = await axios
-        .get(url)
+        .get(url, { withCredentials: true })
         .then((response) => {
           return response.data;
         })
@@ -19,7 +19,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'POST':
       const postResponse = await axios
-        .post(url, data)
+        .post(url, data, { withCredentials: true })
         .then((response) => {
           return response.data;
         })
@@ -30,7 +30,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'PUT':
       const putResponse = await axios
-        .put(url, data)
+        .put(url, data, { withCredentials: true })
         .then((response) => {
           return response.data;
         })
@@ -41,7 +41,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'DELETE':
       const deleteResponse = await axios
-        .delete(url)
+        .delete(url, { withCredentials: true })
         .then((response) => {
           return response.data;
         })

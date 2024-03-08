@@ -99,7 +99,7 @@ const DropdownMessage = () => {
         </div>
 
         <ul className="flex h-auto flex-col overflow-y-auto">
-          <li>
+          {/* <li>
             <Link
               className="flex gap-4.5 border-t border-stroke px-4.5 py-3 hover:bg-gray-2 dark:border-strokedark dark:hover:bg-meta-4"
               to="/messages"
@@ -188,7 +188,7 @@ const DropdownMessage = () => {
                 <p className="text-xs">2min ago</p>
               </div>
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
       {/* <!-- Dropdown End --> */}

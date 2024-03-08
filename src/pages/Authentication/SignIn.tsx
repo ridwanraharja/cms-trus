@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumbs/Breadcrumb';
 import LogoDark from '../../images/logo/logo-dark.svg';
-import Logo from '../../images/logo/logo.svg';
+import Logo from '../../images/logo/logo.png';
 import DefaultLayout from '../../layout/DefaultLayout';
 import { query } from '../../utils/axiosUtil';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,8 +54,11 @@ const SignIn: React.FC = () => {
         <div className="hidden w-full xl:block xl:w-1/2">
           <div className="py-17.5 px-26 text-center">
             <Link className="mb-5.5 inline-block" to="/">
-              <img className="hidden dark:block" src={Logo} alt="Logo" />
-              <img className="dark:hidden" src={LogoDark} alt="Logo" />
+              <img
+                className="w-[300px] bg-primary p-3 rounded-lg"
+                src={Logo}
+                alt="Logo"
+              />
             </Link>
 
             <p className="2xl:px-20">
@@ -192,7 +195,7 @@ const SignIn: React.FC = () => {
           <div className="w-full p-4 sm:p-12.5 xl:p-17.5">
             <span className="mb-1.5 block font-medium">Start for free</span>
             <h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-              Sign In to TailAdmin
+              Sign In to Admin
             </h2>
 
             <form onSubmit={handleSubmit}>

@@ -1,34 +1,26 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import Breadcrumb from '../../../components/Breadcrumbs/Breadcrumb';
-import DefaultLayout from '../../../layout/DefaultLayout';
+import Breadcrumb from '../../../../components/Breadcrumbs/Breadcrumb';
+import DefaultLayout from '../../../../layout/DefaultLayout';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { query } from '../../../utils/axiosUtil';
+import { query } from '../../../../utils/axiosUtil';
 import { current } from '@reduxjs/toolkit';
 
-const UpdateCareer = () => {
+const UpdateTopic = () => {
   const [formData, setFormData] = useState({
-    title: '',
-    city: '',
-    country: '',
-    link: '',
+    content: '',
   });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state: any) => state.user);
 
-  const { careerId } = useParams();
+  const { topicId } = useParams();
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (
-      !formData.title ||
-      !formData.city ||
-      !formData.country ||
-      !formData.link
-    ) {
+    if (!formData.content) {
       return setErrorMessage('Please fill out all fields.');
     }
     try {
@@ -37,7 +29,7 @@ const UpdateCareer = () => {
 
       const data: any = await query(
         'PUT',
-        `/api/career/updatecareer/${careerId}/${currentUser._id}`,
+        `/api/topic/updatetopic/${topicId}/${currentUser._id}`,
         formData,
       );
       console.log(data);
@@ -49,7 +41,7 @@ const UpdateCareer = () => {
 
       setLoading(false);
       if (data.success === true) {
-        navigate('/');
+        navigate('/topics');
       }
     } catch (error: any) {
       setErrorMessage(error.message);
@@ -57,13 +49,13 @@ const UpdateCareer = () => {
     }
   };
 
-  const getCareers = async () => {
+  const getTopics = async () => {
     setLoading(true);
     setErrorMessage(null);
     try {
       const res: any = await query(
         'GET',
-        '/api/career/getcareers?careerId=' + careerId,
+        '/api/topic/gettopics?topicId=' + topicId,
       );
       if (res.success === false) {
         setLoading(false);
@@ -72,7 +64,7 @@ const UpdateCareer = () => {
 
       setLoading(false);
       if (res.success === true) {
-        setFormData(res.careers[0]);
+        setFormData(res.topics[0]);
       }
     } catch (error: any) {
       setErrorMessage(error.message);
@@ -81,12 +73,11 @@ const UpdateCareer = () => {
   };
 
   useEffect(() => {
-    getCareers();
+    getTopics();
   }, []);
-
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Create Career" />
+      <Breadcrumb pageName="Create Topic" />
 
       <div className="flex flex-col gap-10">
         <div className="flex flex-col gap-9">
@@ -106,64 +97,17 @@ const UpdateCareer = () => {
                   Title
                 </label>
                 <input
-                  id="title"
+                  id="content"
                   type="text"
                   onChange={(e) =>
-                    setFormData({ ...formData, title: e.target.value })
+                    setFormData({ ...formData, content: e.target.value })
                   }
-                  value={formData.title}
+                  value={formData.content}
                   placeholder="Write your title here: 'ex: Business Development'"
                   className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
                 />
               </div>
 
-              <div>
-                <label className="mb-3 block text-black dark:text-white">
-                  City
-                </label>
-                <input
-                  id="city"
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, city: e.target.value })
-                  }
-                  value={formData.city}
-                  placeholder="Write your city here: 'ex: Jakarta'"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
-              </div>
-
-              <div>
-                <label className="mb-3 block text-black dark:text-white">
-                  Country
-                </label>
-                <input
-                  id="country"
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, country: e.target.value })
-                  }
-                  value={formData.country}
-                  placeholder="Write your country here: 'ex: Indonesia'"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
-              </div>
-
-              <div>
-                <label className="mb-3 block text-black dark:text-white">
-                  Link
-                </label>
-                <input
-                  id="link"
-                  type="text"
-                  onChange={(e) =>
-                    setFormData({ ...formData, link: e.target.value })
-                  }
-                  value={formData.link}
-                  placeholder="Write your link here: 'ex: https://www.linkedin.com/company/synapsis-id/jobs/'"
-                  className="w-full rounded-lg border-[1.5px] border-stroke bg-transparent py-3 px-5 text-black outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                />
-              </div>
               {errorMessage && (
                 <div className="flex w-full mb-5 border-l-6 border-[#F87171] bg-[#F87171] bg-opacity-[15%] px-2 py-3 shadow-md dark:bg-[#1B1B24] dark:bg-opacity-30 md:p-3">
                   <div className="mr-5 flex h-9 w-full max-w-[36px] items-center justify-center rounded-lg bg-[#F87171]">
@@ -189,7 +133,7 @@ const UpdateCareer = () => {
                 </div>
               )}
               <div className="flex w-full justify-end gap-2">
-                <Link to="/">
+                <Link to="/topics">
                   <button className="w-full lg:w-auto inline-flex items-center justify-center gap-2.5 rounded-md bg-slate-400 py-2 px-5 text-center font-medium text-white hover:bg-opacity-90 lg:px-2 xl:px-3">
                     Cancel
                   </button>
@@ -199,7 +143,7 @@ const UpdateCareer = () => {
                   type="submit"
                   className="w-full lg:w-auto inline-flex items-center justify-center gap-2.5 rounded-md bg-primary py-2 px-5 text-center font-medium text-white hover:bg-opacity-90 lg:px-2 xl:px-3"
                 >
-                  Update Career
+                  Update Topic
                 </button>
               </div>
             </form>
@@ -210,4 +154,4 @@ const UpdateCareer = () => {
   );
 };
 
-export default UpdateCareer;
+export default UpdateTopic;
