@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -24,10 +24,12 @@ import CreateTopic from './pages/Dashboard/MessageForms/Topics/CreateTopic';
 import DetailMessage from './pages/Dashboard/MessageForms/Messages/DetailMessage';
 import Messages from './pages/Dashboard/MessageForms/Messages/Messages';
 import CreateCareer from './pages/Dashboard/Careers/CreateCareer';
+import { query } from './utils/axiosUtil';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -35,6 +37,23 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  useEffect(() => {
+    const validateToken = async () => {
+      try {
+        const response = await query('POST', '/api/auth/verify-token');
+
+        if (response.statusCode === 200) {
+          return;
+        }
+      } catch (error) {
+        localStorage.removeItem('lt');
+        navigate('/auth/signin');
+      }
+    };
+
+    validateToken();
   }, []);
 
   return loading ? (

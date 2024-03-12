@@ -76,75 +76,104 @@ const Messages = () => {
       <DefaultLayout>
         <Breadcrumb pageName="Message Forms" />
         <div className="flex flex-col gap-6">
-          <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+          <div className="rounded-sm border border-stroke bg-white px-5 py-6  shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5">
             <div className="max-w-full overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Name
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Email
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Phone
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Topic
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Message
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item: any, key: any) => (
-                    <tr key={key}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.name}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.email}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.phone}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.topic}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.message}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-                          <Link to={`/messageforms/detail/${item._id}`}>
-                            <BiDetail className="text-[18px] hover:text-primary cursor-pointer" />
-                          </Link>
-                          <FaRegTrashAlt
-                            className="text-[18px] hover:text-primary cursor-pointer"
-                            onClick={() => {
-                              setShowModal(true);
-                              setSelectedId(item._id);
-                            }}
-                          />
-                        </div>
+                  {loading && (
+                    <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                      <td className="text-center" colSpan={6}>
+                        <div className="py-4 px-4 animate-pulse h-7 bg-slate-400 rounded"></div>
                       </td>
                     </tr>
-                  ))}
+                  )}
+                  {!loading && (
+                    <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Name
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Email
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Phone
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Topic
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Message
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        Action
+                      </th>
+                    </tr>
+                  )}
+                </thead>
+                <tbody>
+                  {loading && (
+                    <>
+                      <tr>
+                        <td className="border-b  border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <div className="animate-pulse max-w-[80%] h-7 bg-slate-400 rounded"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border-b  border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <div className="animate-pulse max-w-[60%] h-7 bg-slate-400 rounded"></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="border-b  border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <div className="animate-pulse max-w-[40%] h-7 bg-slate-400 rounded"></div>
+                        </td>
+                      </tr>
+                    </>
+                  )}
+                  {!loading &&
+                    data.map((item: any, key: any) => (
+                      <tr key={key}>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.name}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.email}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.phone}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.topic}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.message}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <div className="flex items-center space-x-3.5">
+                            <Link to={`/messageforms/detail/${item._id}`}>
+                              <BiDetail className="text-[18px] hover:text-primary cursor-pointer" />
+                            </Link>
+                            <FaRegTrashAlt
+                              className="text-[18px] hover:text-primary cursor-pointer"
+                              onClick={() => {
+                                setShowModal(true);
+                                setSelectedId(item._id);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
