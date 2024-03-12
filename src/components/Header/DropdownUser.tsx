@@ -23,6 +23,7 @@ const DropdownUser = () => {
       if (!data.success) {
         console.log(data.message);
       } else {
+        localStorage.removeItem('lt');
         await dispatch(signoutSuccess());
         navigate('/auth/signin');
       }
