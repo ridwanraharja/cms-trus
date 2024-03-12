@@ -5,10 +5,21 @@ axios.defaults.timeout = 120000;
 axios.defaults.withCredentials = true;
 
 export const query = async (method: string, url: string, data?: any) => {
+  const token = await localStorage.getItem('lt');
+
+  let config = {};
+  if (token !== null) {
+    config = {
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+  }
+
   switch (method) {
     case 'GET':
       const getResponse = await axios
-        .get(url, { withCredentials: true })
+        .get(url, config)
         .then((response) => {
           return response.data;
         })
@@ -19,7 +30,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'POST':
       const postResponse = await axios
-        .post(url, data, { withCredentials: true })
+        .post(url, data, config)
         .then((response) => {
           return response.data;
         })
@@ -30,7 +41,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'PUT':
       const putResponse = await axios
-        .put(url, data, { withCredentials: true })
+        .put(url, data, config)
         .then((response) => {
           return response.data;
         })
@@ -41,7 +52,7 @@ export const query = async (method: string, url: string, data?: any) => {
 
     case 'DELETE':
       const deleteResponse = await axios
-        .delete(url, { withCredentials: true })
+        .delete(url, config)
         .then((response) => {
           return response.data;
         })

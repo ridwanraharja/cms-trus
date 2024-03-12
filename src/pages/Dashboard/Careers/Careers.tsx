@@ -90,69 +90,98 @@ const Careers: React.FC = () => {
             <div className="max-w-full overflow-x-auto">
               <table className="w-full table-auto">
                 <thead>
-                  <tr className="bg-gray-2 text-left dark:bg-meta-4">
-                    <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
-                      Title
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      City
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Country
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Link
-                    </th>
-                    <th className="py-4 px-4 font-medium text-black dark:text-white">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {data.map((item: any, key: any) => (
-                    <tr key={key}>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <h5 className="font-medium text-black dark:text-white">
-                          {item.title}
-                        </h5>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {item.city}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <p className="text-black dark:text-white">
-                          {item.country}
-                        </p>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
-                        <a
-                          href={item.link}
-                          target="_blank"
-                          className="font-medium max-w-[200px] text-black dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"
-                        >
-                          <h5 className="font-medium max-w-[200px] text-primary dark:text-white text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
-                            {item.link}
-                          </h5>
-                        </a>
-                      </td>
-                      <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                        <div className="flex items-center space-x-3.5">
-                          <Link to={`/careers/update/${item._id}`}>
-                            <FaRegEdit className="text-[18px] hover:text-primary cursor-pointer" />
-                          </Link>
-                          <FaRegTrashAlt
-                            className="text-[18px] hover:text-primary cursor-pointer"
-                            onClick={() => {
-                              setShowModal(true);
-                              setSelectedId(item._id);
-                            }}
-                          />
-                        </div>
+                  {!loading && (
+                    <tr className="bg-gray-2 text-left dark:bg-meta-4">
+                      <th className="py-4 px-4 font-medium text-black dark:text-white xl:pl-11">
+                        Title
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        City
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        Country
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        Link
+                      </th>
+                      <th className="py-4 px-4 font-medium text-black dark:text-white">
+                        Action
+                      </th>
+                    </tr>
+                  )}
+                  {loading && (
+                    <tr>
+                      <td className="p-5 text-center col-span-5">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded  "></div>
                       </td>
                     </tr>
-                  ))}
+                  )}
+                </thead>
+                <tbody>
+                  {loading && (
+                    <tr>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded"></div>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded"></div>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded"></div>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded"></div>
+                      </td>
+                      <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                        <div className="animate-pulse h-7 bg-slate-400 rounded"></div>
+                      </td>
+                    </tr>
+                  )}
+                  {!loading &&
+                    data.map((item: any, key: any) => (
+                      <tr key={key}>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <h5 className="font-medium text-black dark:text-white">
+                            {item.title}
+                          </h5>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                            {item.city}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <p className="text-black dark:text-white">
+                            {item.country}
+                          </p>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11">
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            className="font-medium max-w-[200px] text-black dark:text-white text-ellipsis overflow-hidden whitespace-nowrap"
+                          >
+                            <h5 className="font-medium max-w-[200px] text-primary dark:text-white text-ellipsis overflow-hidden whitespace-nowrap cursor-pointer">
+                              {item.link}
+                            </h5>
+                          </a>
+                        </td>
+                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                          <div className="flex items-center space-x-3.5">
+                            <Link to={`/careers/update/${item._id}`}>
+                              <FaRegEdit className="text-[18px] hover:text-primary cursor-pointer" />
+                            </Link>
+                            <FaRegTrashAlt
+                              className="text-[18px] hover:text-primary cursor-pointer"
+                              onClick={() => {
+                                setShowModal(true);
+                                setSelectedId(item._id);
+                              }}
+                            />
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>
